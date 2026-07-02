@@ -102,7 +102,8 @@ Before submitting a pull request:
 
 | Workflow | Trigger | Purpose |
 |---|---|---|
-| Build and Release | Push, PR | Build firmware for all chips; generate the stub size report on PRs (uploaded as an artifact); create releases on tags |
+| Build and Release | Push, PR, tag | Build firmware for all chips; generate the stub size report on PRs; create a draft GitHub release on tags |
+| Publish npm package | GitHub release published | Package stub JSON files and publish to npm (triggered when a draft release is manually published) |
 | Post stub size report | `workflow_run` after Build and Release | Post/update the size report comment on the PR (runs with a write token so it also works for fork PRs) |
 | Host Tests | Push | Run native unit tests |
 | DangerJS | PR | Validate PR style and conventions |
@@ -125,6 +126,8 @@ git push --tags
 ```
 
 Create a pull request and edit the automatically created draft release on the [releases page](https://github.com/espressif/esp-flasher-stub/releases).
+
+Publishing the release automatically triggers the Publish npm package workflow, which downloads the stub JSON files attached to the release and publishes the [`esp-flasher-stub`](https://www.npmjs.com/package/esp-flasher-stub) npm package.
 
 ## Utilities
 
